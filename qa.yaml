@@ -1,0 +1,26 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - "--no-cache"
+      - "--build-arg"
+      - "project_id=$PROJECT_ID"
+      - "--build-arg"
+      - "ci=$_CI"
+      - "-t"
+      - "$_SERVICE_NAME:latest"
+      - $_ROOT_DIR
+      - "-f"
+      - $_ROOT_DIR/Dockerfile.qa
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - run
+      - "$_SERVICE_NAME:latest"
+    id: Test
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _SERVICE_NAME: backend-service-test
+  _CI: "true"
+  _ROOT_DIR: "."
