@@ -1,7 +1,7 @@
 FROM golang:1.19 AS build
 ARG project_id="" \
     ci="false"
-ENV PROJECT_ID=$project_id \
+ENV PROJECT_ID=ed-likes-pancakes \
     CI=$ci
 WORKDIR /go/src/test
 COPY *.go go.mod go.sum  ./
